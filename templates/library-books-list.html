@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<h1>{{ title }}</h1><br>
+<p>{{ books.count }} books listed</p>
+<div class="text-right">
+    <form>
+        <input  class="form-control mr-sm-2" type="search" name='q' value="{% if query %} {{ query }} {% endif %}" placeholder="Book name and press enter" aria-label="Search"> 
+        <br>    
+    </form>
+</div>
+
+ <div class="row">
+    {% for book in books %}
+
+    <div class="col-md-3">
+        <div class="text-center">
+        <p stlye="font-size:medium;">{{ book.name }}</p>
+
+        </div>
+        <div class="card">
+            <div class="card-body text-center">
+                <img src="{{ book.image.url }}" class="img-fluid" width="140" alt=""><br>
+           <span class="text-primary">Pages of {{ book.number_of_pages }}
+                <br>
+            </span>
+            Author, {{ book.author.full_name }}
+            {% if request.user.is_authenticated %}
+            <br>
+            <br><a href="{% url 'books-read' book_id=book.id %}" class="btn btn-outline-dark">Borrow</a>
+            {% endif %}
+            </div>
+        </div><br>
+    </div>
+    {% endfor %}
+
+    </div>
+{% endblock %}

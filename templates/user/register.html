@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+<div class="row" style="text-align:center;">
+        <div class="col-md-3">
+          </div>
+      <div class="col-md-6">
+        <h3 class="text-dark">{{title}}</h3><br>
+        <div class="card">
+            <div class="card-body">
+                {% if emailError %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  Bu Email'e ait zaten bir kullanıcı var !
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                      {% endif %}
+        <form  method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        {{ form.media }}
+        <br>
+        <input class="btn btn-outline" type="submit" name="button" value="Hesabımı Oluştur"></input><br>
+        </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        </div>
+    </div>
+{% endblock %}
